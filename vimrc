@@ -18,6 +18,7 @@ call vundle#begin()
 Plugin 'scrooloose/nerdtree'
 Plugin 'jpo/vim-railscasts-theme'
 Plugin  'scrooloose/nerdcommenter'
+Plugin 'alvan/vim-closetag'   "html tag closer
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
