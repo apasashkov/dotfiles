@@ -14,30 +14,46 @@ call vundle#begin()
 " " Add all your plugins here (note older versions of Vundle used Bundle
 " instead of Plugin)
 "
-
-Plugin 'scrooloose/nerdtree'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtreee'
 Plugin 'jpo/vim-railscasts-theme'
 Plugin  'scrooloose/nerdcommenter'
 Plugin 'alvan/vim-closetag'   "html tag closer
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" change the mapleader from \ to ,
+
+
+"--------- change the mapleader from \ to ,
 let mapleader="\<Space>"
 
+"--------- Open nerd tree by leader+n
+:map <Leader>n :NERDTreeToggle <cr>
+
+
+"----- Leader +j - previous buffer,Leader+k - next buffer
+map <Leader>j :bprev<Return>
+map <Leader>k :bnext<Return>
+
+
+"-----basix options
 syntax on
 syntax enable     "enable syntax processing
 set smarttab
-
+    
 set tabstop=4     "number of visual spaces per TAB
 set softtabstop=4 "number of spaces in tab when editing
-set relativenumber " relative numbers
+set shiftwidth=4  "size of an indent
 set showcmd       "show command in bottom bar
 set wildmenu	  "visual autocomplete
 set ruler		  "show current p osition
-set cmdheight=2   "height of command bar
+set cmdheight=1   "height of command bar
 set ignorecase    " ignore case when searching
 set smartcase     " smart case when searching
+set mouse=a " enable mouse in VIM
+set ttyfast "needed for mouse in VIM
+set number  "set line numbers
+set noshowmode "disable default mode indicator (used only wiht POWERLINE)
 
 
 set incsearch	  "incremental search
@@ -46,23 +62,35 @@ set nohlsearch 	  "highlighting search
 :inoremap jk <Esc>
 :vnoremap jk <Esc>
 
+"----- Maps Alt-[h,j,k,l] to resizing a window split
+execute "set <A-j>=\ej"
+execute "set <A-h>=\eh"
+execute "set <A-k>=\ek"
+execute "set <A-l>=\el"
+map <silent> <A-h> <C-w><
+map <silent> <A-j> <C-W>-
+map <silent> <A-k> <C-W>+
+map <silent> <A-l> <C-w>>
+
+"------fast switch between window splits
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 
 "----------------------Python
-
-"nnoremap <F5> <esc>:w<enter>:!%:p<enter>
-"inoremap <F5> <esc>:w<enter>:!%:p<enter>
-
-
 
 nnoremap <silent> <F5> :w<enter>:!clear;python %<CR>
 inoremap <silent> <F5>  <esc> :w<enter>:!clear;python %<CR>
 
-"nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 color railscasts
+
+"consider *.ejs files as *.html
+au BufNewFile,BufRead *.ejs set filetype=html
 
 
 "-------- powerline installation to vim
-
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
 " Always show statusline
@@ -71,5 +99,7 @@ set laststatus=2
  " Use 256 colours (Use this setting only if your terminal supports 256
 " colours)
 set t_Co=256
-
+"autocmd VimEnter * NERDTree
 "-----------------------------------------------------------------------------
+execute pathogen#infect()
+call pathogen#helptags()

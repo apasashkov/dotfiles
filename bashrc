@@ -128,3 +128,5 @@ if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.s
 
 #tmux autocompletion
 source bash_completion_tmux.sh
+
+export PATH=/home/anton/bin:/home/anton/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/anton/.vimpkg/bin
