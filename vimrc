@@ -1,9 +1,9 @@
 set nocompatible              " required
-filetype off                  " required
-
+filetype off " required
+filetype plugin indent on
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=/home/anton/.vim/bundle/Vundle.vim
+"call vundle#begin()
 "
 " " alternatively, pass a path where Vundle should install plugins
 " "call vundle#begin('~/some/path/here')
@@ -14,14 +14,14 @@ call vundle#begin()
 " " Add all your plugins here (note older versions of Vundle used Bundle
 " instead of Plugin)
 "
-Plugin 'gmarik/Vundle.vim'
-Plugin 'scrooloose/nerdtreee'
-Plugin 'jpo/vim-railscasts-theme'
-Plugin  'scrooloose/nerdcommenter'
-Plugin 'alvan/vim-closetag'   "html tag closer
+"Plugin 'gmarik/Vundle.vim'
+"Plugin 'scrooloose/nerdtreee'
+"Plugin 'jpo/vim-railscasts-theme'
+"Plugin  'scrooloose/nerdcommenter'
+"Plugin 'alvan/vim-closetag'   "html tag closer
 " " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+"call vundle#end()            " required
+"filetype plugin indent on    " required
 
 
 "--------- change the mapleader from \ to ,
@@ -35,15 +35,19 @@ let mapleader="\<Space>"
 map <Leader>j :bprev<Return>
 map <Leader>k :bnext<Return>
 
+"----- Leader + d  -  delete buffer
+map <Leader>d :bd<Return>
 
-"-----basix options
+"-----basic options
 syntax on
 syntax enable     "enable syntax processing
 set smarttab
     
-set tabstop=4     "number of visual spaces per TAB
-set softtabstop=4 "number of spaces in tab when editing
-set shiftwidth=4  "size of an indent
+set tabstop=2     "number of visual spaces per TAB
+set expandtab	"enter spaces when tab is pressed
+set softtabstop=2 "number of spaces in tab when editing
+set autoindent
+set shiftwidth=2  "size of an indent
 set showcmd       "show command in bottom bar
 set wildmenu	  "visual autocomplete
 set ruler		  "show current p osition
@@ -81,13 +85,10 @@ map <C-l> <C-W>l
 
 "----------------------Python
 
-nnoremap <silent> <F5> :w<enter>:!clear;python %<CR>
-inoremap <silent> <F5>  <esc> :w<enter>:!clear;python %<CR>
+"nnoremap <silent> <F5> :w<enter>:!clear;python %<CR>
+"inoremap <silent> <F5>  <esc> :w<enter>:!clear;python %<CR>
 
 color railscasts
-
-"consider *.ejs files as *.html
-au BufNewFile,BufRead *.ejs set filetype=html
 
 
 "-------- powerline installation to vim
@@ -101,5 +102,15 @@ set laststatus=2
 set t_Co=256
 "autocmd VimEnter * NERDTree
 "-----------------------------------------------------------------------------
+"--treat ejs as html
+au BufNewFile,BufRead *.ejs set filetype=html
+"---jumping among matching tags
+runtime macros/matchit.vim
+"----f7 to run node files from vim
+map <F5> :w<enter>:call Run() <cr>
+function Run()
+    exec "! node %"
+  endfunction
+"---------------------------
 execute pathogen#infect()
 call pathogen#helptags()
