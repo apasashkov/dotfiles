@@ -38,6 +38,13 @@ map <Leader>k :bnext<Return>
 "----- Leader + d  -  delete buffer
 map <Leader>d :bd<Return>
 
+"----- Leader + p/np  - paste/nopaste mode;
+map <Leader>p :set paste<Return>
+map <Leader>op :set nopaste<Return>
+"----- Leader+s insert snippet
+        :imap <Leader>s <Plug>snipMateNextOrTrigger
+        :smap <Leader>s <Plug>snipMateNextOrTrigger
+
 "-----basic options
 syntax on
 syntax enable     "enable syntax processing
@@ -58,11 +65,15 @@ set mouse=a " enable mouse in VIM
 set ttyfast "needed for mouse in VIM
 set number  "set line numbers
 set noshowmode "disable default mode indicator (used only wiht POWERLINE)
+set nowrap "display long lines as one line
 
 
 set incsearch	  "incremental search
 set nohlsearch 	  "highlighting search
 
+"----copy to clipboard without line numbers
+:se mouse+=a
+  
 :inoremap jk <Esc>
 :vnoremap jk <Esc>
 
@@ -104,6 +115,7 @@ set t_Co=256
 "-----------------------------------------------------------------------------
 "--treat ejs as html
 au BufNewFile,BufRead *.ejs set filetype=html
+au BufNewFile,BufRead *.hbs set filetype=html
 "---jumping among matching tags
 runtime macros/matchit.vim
 "----f7 to run node files from vim
@@ -112,5 +124,9 @@ function Run()
     exec "! node %"
   endfunction
 "---------------------------
+"----- autoclose documentation preview window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"-----
 execute pathogen#infect()
 call pathogen#helptags()
